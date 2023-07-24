@@ -1,0 +1,39 @@
+<!--
+	@author      WDCi ()
+	@date        July 2023
+	@group       Aura
+	@group-content 
+	@description 
+	@changehistory
+-->
+<aura:component implements="" access="global" controller="">
+	
+	<!-- configurable attributes -->
+	<aura:attribute name="" type="String" default="" access="global"/>
+	<aura:attribute name="enableDebug" type="Boolean" access="global" default="false" />
+	
+	<!-- internal attributes -->
+	<aura:attribute name="" type="String" default=""/>
+	
+	<!-- spinner -->
+	<aura:attribute name="loadingCount" type="Integer" default="0"/>
+	
+	<!-- library loader: 'stringutil','moment','fullcalendar','fcmoment', 'jquery' --->
+	<aura:attribute name="modules" type="List" default="[]"/>
+    <aura:attribute name="modulesLoaded" type="Boolean" default="false"/>
+    <c:jsLibraryLoader modules="{!v.modules}" enableDebugMode="{!v.enableDebug}" onsuccess="{!c.init}" ></c:jsLibraryLoader>
+	
+	<!-- handlers-->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+	
+	
+	<div class="component-body slds-is-relative>
+		<div class="spinnerholder">
+            <aura:renderIf isTrue="{!v.loadingCount >= 1}">
+                <div id="spinnerdiv">
+                    <lightning:spinner aura:id="mySpinner" alternativeText="{!$Label.c.Loading}" />
+                </div>
+            </aura:renderIf>
+        </div>
+	</div>
+</aura:component>	

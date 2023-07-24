@@ -1,0 +1,11 @@
+<template>
+    <c-js-library-loader modules={modules} enable-debug-mode={enableDebugMode} onsuccess={handleLibLoadSuccess} onfail={handleLibLoadFail} ></c-js-library-loader>
+	
+	<div class="component-body slds-is-relative">
+		<div if:true={isLoading} id="spinnerDiv" data-id="spinnerDiv" >
+            <lightning-spinner alternative-text={label.loading} ></lightning-spinner>
+        </div>
+		
+	</div>
+	
+</template>
