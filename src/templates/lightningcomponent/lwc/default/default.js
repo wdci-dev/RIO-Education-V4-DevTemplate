@@ -7,9 +7,7 @@
  */
 import { LightningElement, api } from 'lwc';
 import { promptInfo, promptError, promptWarning, promptSuccess } from 'c/toasterUtil';
-
-import loadingLabel from '@salesforce/label/c.Loading';
-import errorLabel from '@salesforce/label/c.Error';
+import { customLabels } from 'c/labelLoader';
 
 export default class <%= pascalCaseComponentName %> extends LightningElement {
 	
@@ -22,9 +20,7 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
 	loadedLists = 0;
 	
 	//labels
-	label = {
-		loadingLabel, errorLabel
-	}
+	label = customLabels;
 	
 	//js library module 'lodash', 'stringutil', 'moment', 'fullcalendar', 'fcmoment', 'jquery'
     modules = [];
