@@ -10,7 +10,7 @@
 	
 	<!-- configurable attributes -->
 	<aura:attribute name="" type="String" default="" access="global"/>
-	<aura:attribute name="enableDebug" type="Boolean" access="global" default="false" />
+	<aura:attribute name="enableDebugMode" type="Boolean" access="global" default="false" />
 	
 	<!-- internal attributes -->
 	<aura:attribute name="" type="String" default=""/>
@@ -21,7 +21,7 @@
 	<!-- library loader: 'stringutil','moment','fullcalendar','fcmoment', 'jquery' --->
 	<aura:attribute name="modules" type="List" default="[]"/>
     <aura:attribute name="modulesLoaded" type="Boolean" default="false"/>
-    <c:jsLibraryLoader modules="{!v.modules}" enableDebugMode="{!v.enableDebug}" onsuccess="{!c.init}" ></c:jsLibraryLoader>
+    <c:jsLibraryLoader modules="{!v.modules}" enableDebugMode="{!v.enableDebugMode}" onsuccess="{!c.init}" ></c:jsLibraryLoader>
 	
 	<!-- handlers-->
     <aura:handler name="init" value="{!this}" action="{!c.init}"/>

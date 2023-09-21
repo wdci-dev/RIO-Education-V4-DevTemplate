@@ -58,7 +58,7 @@
     },
 
     consoleLog: function(cmp, anything){
-        if(cmp.get("v.enableDebug")){
+        if(cmp.get("v.enableDebugMode")){
             console.log(anything);
         }
     },
