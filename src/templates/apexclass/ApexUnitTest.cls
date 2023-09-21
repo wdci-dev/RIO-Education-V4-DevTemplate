@@ -9,6 +9,9 @@
 @isTest
 public with sharing class <%= apiName %> {
 
+    /**
+     * @description Default method to setup required data for automated test
+     */
 	@TestSetup
     static void makeData(){
         
@@ -18,6 +21,9 @@ public with sharing class <%= apiName %> {
 		testFactory.initMasterData(null);
     }
 	
+    /**
+     * @description Test as admin for xxx
+     */
     @isTest
     static void testForAdmin() {
 	
@@ -28,6 +34,9 @@ public with sharing class <%= apiName %> {
 		
     }
 	
+    /**
+     * @description Test as student for xxx
+     */
 	@isTest
     static void testForStudent() {
 		
@@ -38,6 +47,9 @@ public with sharing class <%= apiName %> {
 		
     }
 	
+    /**
+     * @description Test as faculty for xxx
+     */
 	@isTest
     static void testForFaculty() {
 		
