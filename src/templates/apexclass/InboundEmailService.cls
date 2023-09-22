@@ -6,7 +6,7 @@
  * @changehistory
  * 
  */
-global with sharing class <%= apiName %> implements Messaging.InboundEmailHandler {
+global inherited sharing class <%= apiName %> implements Messaging.InboundEmailHandler {
 
     /**
      * @descripton Inbound email handler

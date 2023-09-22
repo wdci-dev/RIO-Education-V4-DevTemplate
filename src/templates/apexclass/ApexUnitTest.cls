@@ -7,7 +7,7 @@
  * 
  */
 @isTest
-public with sharing class <%= apiName %> {
+public inherited sharing class <%= apiName %> {
 
     /**
      * @description Default method to setup required data for automated test

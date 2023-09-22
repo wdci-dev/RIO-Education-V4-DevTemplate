@@ -6,7 +6,7 @@
  * @changehistory
  * 
  */
-public with sharing class <%= apiName %> extends REDU_TriggerExecutable {
+public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
     
 	/**
      * @description BeforeInsert
