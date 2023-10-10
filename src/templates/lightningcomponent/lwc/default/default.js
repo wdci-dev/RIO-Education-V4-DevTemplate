@@ -5,10 +5,12 @@
  * @Description 
  * @changehistory
  */
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire, track } from 'lwc';
 import { promptInfo, promptError, promptWarning, promptSuccess } from 'c/toasterUtil';
 import { getErrorMessage, logInfo, logError } from 'c/loggingUtil';
 import { customLabels } from 'c/labelLoader';
+
+import { refreshApex } from '@salesforce/apex';
 
 //Apex methods
 import ctrlSample from '@salesforce/apex/REDU_<%= pascalCaseComponentName %>_LCTRL.sample';
@@ -67,13 +69,6 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
 	disconnectedCallback() {
 		
 	}
-	
-    /**
-     * @descripton Spinner loading status
-     */
-	get isLoading(){
-        return this.loadedLists === 0 ? false : true;
-    }
 
     /**
      * @descripton Sample method that invoke apex controller
@@ -103,6 +98,13 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
         }
     }
 	
+    /**
+     * @descripton Spinner loading status
+     */
+	get isLoading(){
+        return this.loadedLists === 0 ? false : true;
+    }
+
     /**
      * @descripton Spinner toggler
      */
