@@ -120,7 +120,7 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
      * @descripton Console log for debugging
      */
 	consoleLog(anything, isJson){
-        logInfo('jsLibraryLoader', anything, this.enableDebugMode, isJson);
+        logInfo('<%= pascalCaseComponentName %>', anything, this.enableDebugMode, isJson);
     }
 	
 }
