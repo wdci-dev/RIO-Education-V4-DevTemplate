@@ -6,6 +6,29 @@
             <lightning-spinner alternative-text={label.LOADING_LABEL} ></lightning-spinner>
         </div>
 		
+        <template if:true={isInitSuccess}>
+            <div class="slds-m-around_medium">
+                <div class="<%= pascalCaseComponentName %>-header slds-m-bottom_medium slds-p-bottom_medium slds-border_bottom">
+                    <lightning-layout class="slds-wrap">
+                        <lightning-layout-item size="12" large-device-size="4">
+                            <div class="<%= pascalCaseComponentName %>-title slds-card__header-title">
+                                <lightning-icon icon-name={modalIconName} size="medium" class="slds-m-right_xx-small"></lightning-icon>{modalTitle}
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item alignment-bump="left">
+                            <div class="<%= pascalCaseComponentName %>-nav-button-group">
+                                <lightning-button-group>
+                                    <lightning-button-icon title={label.REFRESH_LABEL} icon-name="utility:refresh" value="refresh" onclick={handleRefreshOnclick}></lightning-button-icon>
+                                </lightning-button-group>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="<%= pascalCaseComponentName %>-content">
+
+                </div>
+            </div>
+        </template>
 	</div>
 	
 </template>

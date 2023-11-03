@@ -8,9 +8,13 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { promptInfo, promptError, promptWarning, promptSuccess } from 'c/toasterUtil';
 import { getErrorMessage, logInfo, logError } from 'c/loggingUtil';
+import { updatedObjReactor, formatDate, formatDateTime, extractFieldValue, extractWireObjectFieldValue } from 'c/lwcUtil';
+import { shadeHexColorCode } from 'c/cssUtil';
 import { customLabels } from 'c/labelLoader';
 
+//refresh module
 import { refreshApex } from '@salesforce/apex';
+import { RefreshEvent, registerRefreshHandler, unregisterRefreshHandler } from 'lightning/refresh';
 
 //Apex methods
 import ctrlSample from '@salesforce/apex/REDU_<%= pascalCaseComponentName %>_LCTRL.sample';
@@ -19,6 +23,8 @@ import ctrlSample from '@salesforce/apex/REDU_<%= pascalCaseComponentName %>_LCT
 export default class <%= pascalCaseComponentName %> extends LightningElement {
 	
 	//configurable attributes
+    @api modalTitle;
+    @api modalIconName;
 	@api enableDebugMode = false;
 	
 	//internal attributes
@@ -26,6 +32,13 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
 	isInitSuccess = false
 	loadedLists = 0;
 	
+    //refresh handler
+    refreshHandlerID;
+
+    //wire attribute
+    sampleWireResult;
+    sampleResponse;
+
 	//labels
 	label = customLabels;
 	
@@ -60,15 +73,49 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
      * @descripton connected callback
      */
     connectedCallback(){
-		
+		this.refreshHandlerID = registerRefreshHandler(this, this.refreshData);
 	}
 	
     /**
      * @descripton disconnected callback
      */
 	disconnectedCallback() {
-		
+		unregisterRefreshHandler(this.refreshHandlerID);
 	}
+
+    /**
+     * @description Refresh data
+     */
+    refreshData() {
+        this.consoleLog('refreshData');
+
+        refreshApex(this.sampleWireResult);
+
+        return new Promise((resolve) => {
+            resolve(true);
+        });
+
+    }
+
+    /**
+     * @description Sample wire method that invoke apex controller to retrieve data
+     */
+    @wire(ctrlSample, {
+        param1: "$param1"
+    })
+    wireSampleRecord(result) {
+        
+        this.sampleWireResult = result;
+        this.sampleResponse = null;
+
+        if (result.data) {
+            this.sampleResponse = JSON.parse(result.data.responseData);
+            this.consoleLog(this.ipeList, true);
+        } else if (result.error) {
+            promptError(this.label.ERROR_LABEL, getErrorMessage(result.error));
+        }
+
+    }
 
     /**
      * @descripton Sample method that invoke apex controller
@@ -96,6 +143,13 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
             this.toggleSpinner(-1);
             promptError(this.label.ERROR_LABEL, getErrorMessage(error));
         }
+    }
+
+    /**
+     * @description Sample handle refresh button
+     */
+    handleRefreshOnclick(event) {
+        
     }
 	
     /**
