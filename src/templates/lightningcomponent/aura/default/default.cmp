@@ -5,6 +5,7 @@
 	@group-content 
 	@description 
 	@changehistory
+	ISS-XXXXXX dd-mm-yyyy name - description
 -->
 <aura:component implements="" access="global" controller="">
 	

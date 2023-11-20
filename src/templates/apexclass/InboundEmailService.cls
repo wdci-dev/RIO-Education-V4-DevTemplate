@@ -1,10 +1,10 @@
 /**
  * @author      WDCi ()
- * @date        Aug 2023
+ * @date        Nov 2023
  * @group       
  * @description 
  * @changehistory
- * 
+ * ISS-XXXXXX dd-mm-yyyy name - description
  */
 global inherited sharing class <%= apiName %> implements Messaging.InboundEmailHandler {
 
