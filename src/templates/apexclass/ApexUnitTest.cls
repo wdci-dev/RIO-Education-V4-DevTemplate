@@ -58,6 +58,12 @@ public inherited sharing class <%= apiName %> {
             LIMIT 1
         ];
 
+        List<Contact> studentContacts = [SELECT Id, 
+            reduivy__Sample_Record_Code__c 
+            FROM Contact 
+            WHERE Id =: studentUser.ContactId
+        ];
+
         // TO DO: implement unit test run as student
 		System.runAs(studentUser){
 		
