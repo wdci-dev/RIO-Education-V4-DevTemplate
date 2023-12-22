@@ -19,6 +19,19 @@ public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
      */
     public override void executeBeforeInsert(System.TriggerOperation operationType, List<SObject> newList, Map<Id, SObject> newMap, List<SObject> oldList, Map<Id, SObject> oldMap, Schema.DescribeSObjectResult sobjResult) {
         
+        //TODO change the permission
+        if (REDU_Permission_UTIL.hasPermission(REDU_Permission_UTIL.UserPermission.REDUUSER)) {
+
+            //TODO change the SObject
+            List<SObject> workingList = new List<SObject>();
+            for (SObject objNew : (List<SObject>) newList) {
+
+
+                workingList.add(objNew);
+            }
+
+            doSomething(workingList);
+        }
     }
 
     /**
@@ -32,6 +45,21 @@ public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
      */
     public override void executeBeforeUpdate(System.TriggerOperation operationType, List<SObject> newList, Map<Id, SObject> newMap, List<SObject> oldList, Map<Id, SObject> oldMap, Schema.DescribeSObjectResult sobjResult) {
 
+        //TODO change the permission
+        if (REDU_Permission_UTIL.hasPermission(REDU_Permission_UTIL.UserPermission.REDUUSER)) {
+
+            //TODO change the SObject
+            List<SObject> workingList = new List<SObject>();
+            for (SObject objNew : (List<SObject>) newList) {
+                SObject objOld = (SObject) oldMap.get(objNew.Id);
+
+                if (objNew.reduivy__Field__c != objOld.reduivy__Field__c) {
+                    workingList.add(objNew);
+                }
+            }
+
+            doSomething(workingList);
+        }
     }
 
     /**
@@ -45,6 +73,19 @@ public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
      */
     public override void executeBeforeDelete(System.TriggerOperation operationType, List<SObject> newList, Map<Id, SObject> newMap, List<SObject> oldList, Map<Id, SObject> oldMap, Schema.DescribeSObjectResult sobjResult) {
 
+        //TODO change the permission
+        if (REDU_Permission_UTIL.hasPermission(REDU_Permission_UTIL.UserPermission.REDUUSER)) {
+
+            //TODO change the SObject
+            List<SObject> workingList = new List<SObject>();
+            for (SObject objOld : (List<SObject>) oldList) {
+
+
+                workingList.add(objOld);
+            }
+
+            doSomething(workingList);
+        }
     }
 
     /**
@@ -58,6 +99,19 @@ public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
      */
     public override void executeAfterInsert(System.TriggerOperation operationType, List<SObject> newList, Map<Id, SObject> newMap, List<SObject> oldList, Map<Id, SObject> oldMap, Schema.DescribeSObjectResult sobjResult) {
 
+        //TODO change the permission
+        if (REDU_Permission_UTIL.hasPermission(REDU_Permission_UTIL.UserPermission.REDUUSER)) {
+
+            //TODO change the SObject
+            List<SObject> workingList = new List<SObject>();
+            for (SObject objNew : (List<SObject>) newList) {
+
+
+                workingList.add(objNew);
+            }
+
+            doSomething(workingList);
+        }
     }
 
     /**
@@ -71,6 +125,21 @@ public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
      */
     public override void executeAfterUpdate(System.TriggerOperation operationType, List<SObject> newList, Map<Id, SObject> newMap, List<SObject> oldList, Map<Id, SObject> oldMap, Schema.DescribeSObjectResult sobjResult) {
 
+        //TODO change the permission
+        if (REDU_Permission_UTIL.hasPermission(REDU_Permission_UTIL.UserPermission.REDUUSER)) {
+
+            //TODO change the SObject
+            List<SObject> workingList = new List<SObject>();
+            for (SObject objNew : (List<SObject>) newList) {
+                SObject objOld = (SObject) oldMap.get(objNew.Id);
+
+                if (objNew.reduivy__Field__c != objOld.reduivy__Field__c) {
+                    workingList.add(objNew);
+                }
+            }
+
+            doSomething(workingList);
+        }
     }
 
     /**
@@ -84,6 +153,19 @@ public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
      */
     public override void executeAfterDelete(System.TriggerOperation operationType, List<SObject> newList, Map<Id, SObject> newMap, List<SObject> oldList, Map<Id, SObject> oldMap, Schema.DescribeSObjectResult sobjResult) {
 
+        //TODO change the permission
+        if (REDU_Permission_UTIL.hasPermission(REDU_Permission_UTIL.UserPermission.REDUUSER)) {
+
+            //TODO change the SObject
+            List<SObject> workingList = new List<SObject>();
+            for (SObject objOld : (List<SObject>) oldList) {
+
+
+                workingList.add(objOld);
+            }
+
+            doSomething(workingList);
+        }
     }
 
     /**
@@ -97,6 +179,27 @@ public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
      */
     public override void executeAfterUndelete(System.TriggerOperation operationType, List<SObject> newList, Map<Id, SObject> newMap, List<SObject> oldList, Map<Id, SObject> oldMap, Schema.DescribeSObjectResult sobjResult) {
 
+        //TODO change the permission
+        if (REDU_Permission_UTIL.hasPermission(REDU_Permission_UTIL.UserPermission.REDUUSER)) {
+
+            //TODO change the SObject
+            List<SObject> workingList = new List<SObject>();
+            for (SObject objNew : (List<SObject>) newList) {
+
+
+                workingList.add(objNew);
+            }
+
+            doSomething(workingList);
+        }
     }
 	
+    /**
+     * @description
+     * @param
+     * @return void
+     */
+    private void doSomething(List<SObject> objList) {
+        //TODO write your logic here
+    }
 }
