@@ -25,7 +25,9 @@ public inherited sharing class <%= apiName %> {
         testFactory.setupDefaultSettings();
 
 		System.runAs(ADMIN_USER) {
-        	testFactory.initSampleData();
+        	testFactory.initMasterData(null);
+            testFactory.initOfferingData(null);
+            testFactory.initStudentData(null, true);
 		}
     }
 	
