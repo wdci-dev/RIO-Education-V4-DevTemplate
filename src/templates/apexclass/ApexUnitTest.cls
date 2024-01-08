@@ -37,6 +37,13 @@ public inherited sharing class <%= apiName %> {
     @IsTest
     static void testForAdmin() {
 	
+        List<Contact> studentContacts = [SELECT Id, 
+            reduivy__Sample_Record_Code__c 
+            FROM Contact 
+            WHERE reduivy__Contact_Type__c =: CON_Helper.CONTACT_TYPE_STUDENT 
+            AND reduivy__Sample_Record_Code__c <> ''
+        ];
+
         // TO DO: implement unit test run as admin
 		System.runAs(ADMIN_USER){
 		
@@ -80,6 +87,13 @@ public inherited sharing class <%= apiName %> {
 	@IsTest
     static void testForFaculty() {
 		
+        List<Contact> studentContacts = [SELECT Id, 
+            reduivy__Sample_Record_Code__c 
+            FROM Contact 
+            WHERE reduivy__Contact_Type__c =: CON_Helper.CONTACT_TYPE_STUDENT 
+            AND reduivy__Sample_Record_Code__c <> ''
+        ];
+        
         // TO DO: implement unit test run as faculty
 		System.runAs(FACULTY_USER){
 		
