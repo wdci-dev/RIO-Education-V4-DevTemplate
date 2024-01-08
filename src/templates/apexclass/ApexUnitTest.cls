@@ -50,18 +50,21 @@ public inherited sharing class <%= apiName %> {
 	@IsTest
     static void testForStudent() {
         
-		User studentUser = [SELECT Id, 
+		List<Contact> studentContacts = [SELECT Id, 
+            reduivy__Sample_Record_Code__c 
+            FROM Contact 
+            WHERE reduivy__Contact_Type__c =: CON_Helper.CONTACT_TYPE_STUDENT 
+            AND reduivy__Sample_Record_Code__c <> ''
+            LIMIT 1
+        ];
+
+        User studentUser = [SELECT Id, 
             ContactId, 
             ProfileId 
             FROM User 
             WHERE ProfileId = : REDU_AppSetting_UTIL.getStudentProfileId()
+            AND ContactId IN: studentContacts
             LIMIT 1
-        ];
-
-        List<Contact> studentContacts = [SELECT Id, 
-            reduivy__Sample_Record_Code__c 
-            FROM Contact 
-            WHERE Id =: studentUser.ContactId
         ];
 
         // TO DO: implement unit test run as student
