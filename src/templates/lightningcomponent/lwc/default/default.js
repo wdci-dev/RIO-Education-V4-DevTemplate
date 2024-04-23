@@ -43,7 +43,7 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
 	//labels
 	label = customLabels;
 	
-	//js library module 'lodash', 'stringutil', 'noheadercss', 'moment', 'fullcalendar', 'fcmoment', 'jquery'
+	//js library module 'lodash', 'stringutil', 'noheadercss', 'moment', 'fullcalendar', 'fcmoment', 'tooltips'
     modules = [];
 	
 	/**
