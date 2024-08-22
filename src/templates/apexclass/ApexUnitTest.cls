@@ -1,6 +1,6 @@
 /**
  * @author      WDCi ()
- * @date        Jan 2024
+ * @date        Sept 2024
  * @group       Test
  * @description Test class for 
  * @changehistory
@@ -14,7 +14,6 @@ public inherited sharing class <%= apiName %> {
      */
     static REDU_TestData_FACTORY testFactory = new REDU_TestData_FACTORY();
 	static User ADMIN_USER = testFactory.getReduAdminUser();
-	static User FACULTY_USER = testFactory.getReduFacultyUser();
 
     /**
      * @description Default method to setup required data for automated test
@@ -22,13 +21,19 @@ public inherited sharing class <%= apiName %> {
 	@TestSetup
     static void makeData(){
         
+        // Create settings
         testFactory.setupDefaultSettings();
 
+        // Create test data
 		System.runAs(ADMIN_USER) {
-        	testFactory.initMasterData(null);
-            testFactory.initOfferingData(null);
-            testFactory.initStudentData(null, true);
+            Test.startTest();
+        	
+            //please adjust the data according to your needs
+            testFactory.initSampleData(null, null, null, null, true, true);
+            
+            Test.stopTest();
 		}
+
     }
 	
     /**
@@ -36,18 +41,18 @@ public inherited sharing class <%= apiName %> {
      */
     @IsTest
     static void testForAdmin() {
-	
-        List<Contact> studentContacts = [SELECT Id, 
-            reduivy__Sample_Record_Code__c 
-            FROM Contact 
-            WHERE reduivy__Contact_Type__c =: CON_Helper.CONTACT_TYPE_STUDENT 
-            AND reduivy__Sample_Record_Code__c <> ''
-        ];
 
+        //get the student record if you need one for testing using student.ContactId
+        User studentUser = testFactory.getStudentUser();
+
+        Test.startTest();
+        
         // TO DO: implement unit test run as admin
 		System.runAs(ADMIN_USER){
 		
 		}
+
+        Test.stopTest();
 		
     }
 	
@@ -56,28 +61,18 @@ public inherited sharing class <%= apiName %> {
      */
 	@IsTest
     static void testForStudent() {
-        
-		List<Contact> studentContacts = [SELECT Id, 
-            reduivy__Sample_Record_Code__c 
-            FROM Contact 
-            WHERE reduivy__Contact_Type__c =: CON_Helper.CONTACT_TYPE_STUDENT 
-            AND reduivy__Sample_Record_Code__c <> ''
-            LIMIT 1
-        ];
 
-        User studentUser = [SELECT Id, 
-            ContactId, 
-            ProfileId 
-            FROM User 
-            WHERE ProfileId = : REDU_AppSetting_UTIL.getStudentProfileId()
-            AND ContactId IN: studentContacts
-            LIMIT 1
-        ];
+        //get the student record if you need one for testing using student.ContactId
+		User studentUser = testFactory.getStudentUser();
+
+        Test.startTest();
 
         // TO DO: implement unit test run as student
 		System.runAs(studentUser){
 		
 		}
+
+        Test.stopTest();
 		
     }
 	
@@ -87,17 +82,23 @@ public inherited sharing class <%= apiName %> {
 	@IsTest
     static void testForFaculty() {
 		
-        List<Contact> studentContacts = [SELECT Id, 
-            reduivy__Sample_Record_Code__c 
-            FROM Contact 
-            WHERE reduivy__Contact_Type__c =: CON_Helper.CONTACT_TYPE_STUDENT 
-            AND reduivy__Sample_Record_Code__c <> ''
-        ];
+        //get the faculty with allocation for testing, if you don't need the one with allocation, you can simplify the code to use testFactory.getReduFacultyUser()
+        User facultyUser = testFactory.getAllocatedFacultyUser();
+        if (facultyUser == null) {
+            facultyUser = testFactory.getReduFacultyUser();
+        }
+
+        //get the student record if you need one for testing using student.ContactId
+        User studentUser = testFactory.getStudentUser();
         
+        Test.startTest();
+
         // TO DO: implement unit test run as faculty
-		System.runAs(FACULTY_USER){
+		System.runAs(facultyUser){
 		
 		}
+
+        Test.stopTest();
 		
     }
 	

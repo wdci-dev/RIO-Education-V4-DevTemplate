@@ -19,7 +19,7 @@
 	<!-- spinner -->
 	<aura:attribute name="loadingCount" type="Integer" default="0"/>
 	
-	<!-- library loader: 'lodash', 'stringutil', 'noheadercss', 'moment', 'fullcalendar', 'fcmoment', 'jquery' --->
+	<!-- library loader: 'lodash', 'stringutil', 'noheadercss', 'moment', 'fullcalendar', 'fcmoment', 'jquery', 'tooltips' -->
 	<aura:attribute name="modules" type="List" default="[]"/>
     <aura:attribute name="modulesLoaded" type="Boolean" default="false"/>
     <c:jsLibraryLoader modules="{!v.modules}" enableDebugMode="{!v.enableDebugMode}" onsuccess="{!c.init}" ></c:jsLibraryLoader>

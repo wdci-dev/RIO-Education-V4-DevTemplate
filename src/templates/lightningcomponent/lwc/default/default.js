@@ -9,7 +9,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { promptInfo, promptError, promptWarning, promptSuccess } from 'c/toasterUtil';
 import { getErrorMessage, logInfo, logError } from 'c/loggingUtil';
-import { updatedObjReactor, formatDate, formatDateTime, extractFieldValue, extractWireObjectFieldValue } from 'c/lwcUtil';
+import { initCacheIdx } from 'c/lwcUtil';
 import { shadeHexColorCode } from 'c/cssUtil';
 import { customLabels } from 'c/labelLoader';
 
@@ -36,6 +36,9 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
     //refresh handler
     refreshHandlerID;
 
+    //local cache idx to force rerendering
+    _cacheIdx;
+
     //wire attribute
     sampleWireResult;
     sampleResponse;
@@ -43,7 +46,7 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
 	//labels
 	label = customLabels;
 	
-	//js library module 'lodash', 'stringutil', 'noheadercss', 'moment', 'fullcalendar', 'fcmoment', 'tooltips'
+	//js library module 'lodash', 'stringutil', 'noheadercss', 'moment', 'fullcalendar', 'fcmoment', 'jquery', 'tooltips'
     modules = [];
 	
 	/**
@@ -75,6 +78,7 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
      */
     connectedCallback(){
 		this.refreshHandlerID = registerRefreshHandler(this, this.refreshData);
+        this._cacheIdx = initCacheIdx();
 	}
 	
     /**
@@ -89,6 +93,9 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
      */
     refreshData() {
         this.consoleLog('refreshData');
+        
+        //update the cacheIdx if you need to force the wire method to get new data from apex
+        this._cacheIdx = initCacheIdx();
 
         refreshApex(this.sampleWireResult);
 
@@ -100,9 +107,11 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
 
     /**
      * @description Sample wire method that invoke apex controller to retrieve data
+     * @param cacheIdx This is to force the wire method to get new data from apex, you don't need to have the variable declare in the apex. Please remove if you don't need it.
      */
     @wire(ctrlSample, {
-        param1: "$param1"
+        param1: "$param1",
+        cacheIdx: "$_cacheIdx"
     })
     wireSampleRecord(result) {
         
@@ -111,7 +120,7 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
 
         if (result.data) {
             this.sampleResponse = JSON.parse(result.data.responseData);
-            this.consoleLog(this.ipeList, true);
+            this.consoleLog(this.sampleResponse, true);
         } else if (result.error) {
             promptError(this.label.ERROR_LABEL, getErrorMessage(result.error));
         }
