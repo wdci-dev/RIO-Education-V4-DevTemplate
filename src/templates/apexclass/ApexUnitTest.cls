@@ -13,7 +13,6 @@ public inherited sharing class <%= apiName %> {
      * @description Initialise test environment
      */
     static REDU_TestData_FACTORY testFactory = new REDU_TestData_FACTORY();
-	static User ADMIN_USER = testFactory.getReduAdminUser();
 
     /**
      * @description Default method to setup required data for automated test
@@ -25,6 +24,7 @@ public inherited sharing class <%= apiName %> {
         testFactory.setupDefaultSettings();
 
         // Create test data
+        User ADMIN_USER = testFactory.getReduAdminUser();
 		System.runAs(ADMIN_USER) {
             Test.startTest();
         	
@@ -41,6 +41,8 @@ public inherited sharing class <%= apiName %> {
      */
     @IsTest
     static void testForAdmin() {
+
+        User ADMIN_USER = testFactory.getReduAdminUser();
 
         //get the student record if you need one for testing using student.ContactId
         User studentUser = testFactory.getStudentUser();
@@ -83,9 +85,9 @@ public inherited sharing class <%= apiName %> {
     static void testForFaculty() {
 		
         //get the faculty with allocation for testing, if you don't need the one with allocation, you can simplify the code to use testFactory.getReduFacultyUser()
-        User facultyUser = testFactory.getAllocatedFacultyUser();
-        if (facultyUser == null) {
-            facultyUser = testFactory.getReduFacultyUser();
+        User FACULTY_USER = testFactory.getAllocatedFacultyUser();
+        if (FACULTY_USER == null) {
+            FACULTY_USER = testFactory.getReduFacultyUser();
         }
 
         //get the student record if you need one for testing using student.ContactId
@@ -94,7 +96,7 @@ public inherited sharing class <%= apiName %> {
         Test.startTest();
 
         // TO DO: implement unit test run as faculty
-		System.runAs(facultyUser){
+		System.runAs(FACULTY_USER){
 		
 		}
 
