@@ -10,6 +10,7 @@ import { LightningElement, api, wire, track } from 'lwc';
 import { promptInfo, promptError, promptWarning, promptSuccess } from 'c/toasterUtil';
 import { getErrorMessage, logInfo, logError } from 'c/loggingUtil';
 import { initCacheIdx } from 'c/lwcUtil';
+import { notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 import { shadeHexColorCode } from 'c/cssUtil';
 import { customLabels } from 'c/labelLoader';
 
@@ -141,6 +142,16 @@ export default class <%= pascalCaseComponentName %> extends LightningElement {
             .then(saveResult => {
                 this.toggleSpinner(-1);
                 promptSuccess(this.label.SUCCESS_LABEL, 'any message');
+
+                //we need to notify the lightning data service about the updated records
+                if (saveResult.responseData) {
+                    let recordIds = [];
+                    for (let recId of JSON.parse(saveResult.responseData)) {
+                        recordIds.push({recordId: recId});
+                    }
+
+                    notifyRecordUpdateAvailable(recordIds);
+                }
 
             })
             .catch(error => {

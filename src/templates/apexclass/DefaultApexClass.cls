@@ -6,6 +6,66 @@
  * @changehistory
  * ISS-XXXXXX dd-mm-yyyy name - description
  */
+
+/** Please note that the template contains 2 parts. Please remove the irrelevant parts. **/
+/** Part 1: Template for lightning web component controller **/
+/** Part 2: Template for trigger EXE **/
+
+/*---------------------- Part 1 -----------------------*/
+public with sharing class <%= apiName %> {
+
+    /**
+     * @description The description
+     * @param param The description
+     * @return REDU_LightningResponse
+     */
+    @AuraEnabled(cacheable=true)
+    public static REDU_LightningResponse getMethodName(String param){
+
+        try {
+            //your logic here
+
+            return new REDU_LightningResponse(true, REDU_LightningResponse.SUCCESS, JSON.serialize(responseData));
+
+        } catch (QueryException qex) {
+            String errorMsg = REDU_ObjectSecurity_UTIL.handleQueryException(qex, false);
+            throw REDU_Exception_UTIL.auraException(errorMsg);
+
+        } catch (Exception exp) {
+            throw REDU_Exception_UTIL.auraException(exp.getMessage());
+        }
+    }
+
+    /**
+     * @description The description
+     * @param param The description
+     * @return REDU_LightningResponse
+     */
+    @AuraEnabled
+    public static REDU_LightningResponse saveMethodName(String param){
+
+        Savepoint sp = Database.setSavePoint();
+
+        try {
+            //your logic here
+
+            return new REDU_LightningResponse(true, REDU_LightningResponse.SUCCESS, JSON.serialize(responseData));
+
+        } catch (QueryException qex) {
+            Database.rollback(sp);
+
+            String errorMsg = REDU_ObjectSecurity_UTIL.handleQueryException(qex, false);
+            throw REDU_Exception_UTIL.auraException(errorMsg);
+
+        } catch (Exception exp) {
+            Database.rollback(sp);
+
+            throw REDU_Exception_UTIL.auraException(exp.getMessage());
+        }
+    }
+}
+
+/*---------------------- Part 2 -----------------------*/
 public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
     
 	/**
