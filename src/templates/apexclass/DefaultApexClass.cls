@@ -8,10 +8,10 @@
  */
 
 /** Please note that the template contains 2 parts. Please remove the irrelevant parts. **/
-/** Part 1: Template for trigger EXE **/
-/** Part 2: Template for lightning web component controller **/
+/** Part 1: Template for lightning web component controller **/
+/** Part 2: Template for trigger EXE **/
 
-/*---------------------- Part 2 -----------------------*/
+/*---------------------- Part 1 -----------------------*/
 public with sharing class <%= apiName %> {
 
     /**
@@ -59,13 +59,13 @@ public with sharing class <%= apiName %> {
 
         } catch (Exception exp) {
             Database.rollback(sp);
-            
+
             throw REDU_Exception_UTIL.auraException(exp.getMessage());
         }
     }
 }
 
-/*---------------------- Part 1 -----------------------*/
+/*---------------------- Part 2 -----------------------*/
 public inherited sharing class <%= apiName %> extends REDU_TriggerExecutable {
     
 	/**
