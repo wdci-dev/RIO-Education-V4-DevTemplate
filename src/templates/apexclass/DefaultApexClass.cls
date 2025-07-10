@@ -28,10 +28,14 @@ public with sharing class <%= apiName %> {
             return new REDU_LightningResponse(true, REDU_LightningResponse.SUCCESS, JSON.serialize(responseData));
 
         } catch (QueryException qex) {
+            REDU_Logging_UTIL.debug(qex);
+
             String errorMsg = REDU_ObjectSecurity_UTIL.handleQueryException(qex, false);
             throw REDU_Exception_UTIL.auraException(errorMsg);
 
         } catch (Exception exp) {
+            REDU_Logging_UTIL.debug(exp);
+
             throw REDU_Exception_UTIL.auraException(exp.getMessage());
         }
     }
@@ -54,12 +58,16 @@ public with sharing class <%= apiName %> {
         } catch (QueryException qex) {
             Database.rollback(sp);
 
+            REDU_Logging_UTIL.debug(qex);
+
             String errorMsg = REDU_ObjectSecurity_UTIL.handleQueryException(qex, false);
             throw REDU_Exception_UTIL.auraException(errorMsg);
 
         } catch (Exception exp) {
             Database.rollback(sp);
-
+            
+            REDU_Logging_UTIL.debug(exp);
+            
             throw REDU_Exception_UTIL.auraException(exp.getMessage());
         }
     }
